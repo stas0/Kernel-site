@@ -1,0 +1,201 @@
+@import 'https://fonts.googleapis.com/css?family=Open+Sans:700';
+#wrap {
+  width: 900px;
+  margin: auto; }
+
+input {
+  box-shadow: none;
+  border: none;
+  outline: none; }
+
+.courses {
+  border-top: 4px solid #7abc62;
+  background: #fff; }
+  .courses * {
+    font-family: 'Myriad Pro'; }
+  .courses .header .title {
+    text-transform: uppercase;
+    color: #7abc62;
+    display: table;
+    margin-top: 21px;
+    margin-left: 56px;
+    margin-bottom: 36px; }
+    .courses .header .title > div {
+      display: table-cell;
+      vertical-align: middle;
+      font-size: 12px; }
+      .courses .header .title > div:last-child {
+        padding-left: 31px;
+        padding-top: 6px; }
+  .courses .header .toolbar {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    padding-left: 21px;
+    padding-right: 26px; }
+    .courses .header .toolbar > div:first-child {
+      font-size: 12px;
+      padding-right: 40px;
+      display: inline-table; }
+      .courses .header .toolbar > div:first-child div {
+        display: table-cell;
+        vertical-align: middle; }
+    .courses .header .toolbar > div {
+      position: relative;
+      height: 45px;
+      display: flex;
+      flex-direction: row;
+      align-items: stretch; }
+      .courses .header .toolbar > div * {
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        -khtml-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none; }
+      .courses .header .toolbar > div input {
+        display: inline-block;
+        flex: 1;
+        height: 45px;
+        background: #f8f7f7;
+        min-width: 235px;
+        float: left;
+        padding: 15px;
+        box-sizing: border-box; }
+      .courses .header .toolbar > div .btn {
+        width: 45px;
+        height: 100%;
+        color: #fff;
+        display: inline-table;
+        cursor: pointer;
+        transition: all 100ms ease-in; }
+        .courses .header .toolbar > div .btn > div {
+          display: table-cell;
+          vertical-align: middle;
+          text-align: center; }
+      .courses .header .toolbar > div .list {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        visibility: hidden; }
+        .courses .header .toolbar > div .list.switch {
+          visibility: visible; }
+        .courses .header .toolbar > div .list > div {
+          padding-right: 26px; }
+          .courses .header .toolbar > div .list > div div {
+            padding: 12px 15px;
+            background: #fff;
+            border: 1px solid #e7e8e9;
+            border-bottom: none;
+            color: #3d464f;
+            font-size: 13px;
+            text-transform: uppercase;
+            cursor: pointer; }
+            .courses .header .toolbar > div .list > div div:first-child {
+              border-top: none; }
+            .courses .header .toolbar > div .list > div div:last-child {
+              border-bottom: 1px solid #e7e8e9; }
+            .courses .header .toolbar > div .list > div div:hover {
+              background: #e7e8e9; }
+      .courses .header .toolbar > div.state {
+        flex: 1;
+        padding-right: 26px;
+        /* Firefox 19+ */
+        /* Firefox 18- */ }
+        .courses .header .toolbar > div.state * {
+          font-family: 'Open Sans'; }
+        .courses .header .toolbar > div.state .btn {
+          background: #e7e8e9; }
+          .courses .header .toolbar > div.state .btn > div {
+            padding-top: 7px; }
+        .courses .header .toolbar > div.state input::-webkit-input-placeholder {
+          color: #3d464f; }
+        .courses .header .toolbar > div.state input::-moz-placeholder {
+          color: #3d464f; }
+        .courses .header .toolbar > div.state input:-moz-placeholder {
+          color: #3d464f; }
+        .courses .header .toolbar > div.state input:-ms-input-placeholder {
+          color: #3d464f; }
+      .courses .header .toolbar > div.search {
+        flex: 1; }
+        .courses .header .toolbar > div.search .btn {
+          background: #7abc62;
+          width: 102px;
+          font-size: 14px;
+          padding-top: 5px; }
+          .courses .header .toolbar > div.search .btn:active {
+            box-shadow: 0px 0px 1px 1px #7abc62; }
+        .courses .header .toolbar > div.search .icon {
+          position: absolute;
+          left: 15px;
+          top: 0px;
+          bottom: 0px;
+          margin: auto; }
+        .courses .header .toolbar > div.search input {
+          max-width: 290px;
+          padding-left: 50px;
+          color: #3d464f; }
+  .courses .header .borderBottom {
+    height: 2px;
+    background: #f8f7f7;
+    border-top: 1px solid #dee0e1;
+    margin-top: 10px; }
+  .courses .body table {
+    border-collapse: collapse;
+    width: 100%; }
+    .courses .body table td {
+      cursor: default; }
+    .courses .body table thead td {
+      color: #3d464f;
+      font-size: 15px;
+      border-bottom: 2px solid #7abc62;
+      padding-top: 25px;
+      padding-left: 22px;
+      padding-bottom: 22px; }
+      .courses .body table thead td:last-child {
+        padding-left: 19.5%; }
+    .courses .body table td:first-child {
+      border-right: 1px solid #e7e8e9;
+      width: 46.5%; }
+    .courses .body table tbody tr:nth-child(odd) {
+      background: #f3f3f4; }
+    .courses .body table tbody tr:hover {
+      background: #eaeaee; }
+    .courses .body table tbody td {
+      padding: 21px;
+      padding-top: 25px;
+      font-size: 15px;
+      color: #3d464f; }
+      .courses .body table tbody td:first-child {
+        background: url("../../../images/folder-2.png");
+        background-repeat: no-repeat;
+        background-position: 21px center;
+        padding-left: 60px; }
+  .courses .pagination {
+    text-align: center;
+    padding: 15px 0px; }
+    .courses .pagination div {
+      display: inline-block;
+      font-size: 13px;
+      font-family: 'Open Sans'; }
+    .courses .pagination .list div {
+      padding: 17px;
+      padding-bottom: 15px;
+      position: relative;
+      cursor: pointer; }
+      .courses .pagination .list div::before {
+        content: '';
+        position: absolute;
+        bottom: 0px;
+        left: 0px;
+        right: 0px;
+        margin: 0px auto;
+        height: 2px;
+        width: 0%;
+        background: #7abc62;
+        transition: width 200ms ease-in; }
+      .courses .pagination .list div:hover::before {
+        width: 100%; }
+    .courses .pagination .next {
+      margin-left: 20px; }

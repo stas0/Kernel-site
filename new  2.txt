@@ -1,0 +1,353 @@
+<script src="eldorado/pics/jquery-2.1.1.js"></script>
+<link href="eldorado/pics/style.css" rel="stylesheet">
+<link href="eldorado/pics/VM_style.css" rel="stylesheet">
+
+<style type="text/css">
+.placeholdr{
+    color:grey;
+}
+
+.table_vur{
+    width:100%;
+    /*height:840px;*/
+}
+.table_vur tr td, .table_vur th {
+    padding:18px;
+    border-top:1px solid #e7eaec;
+    line-height:1.4285;
+}
+.table-striped-vm>tbody>tr:nth-of-type(even) {
+    background-color: #f9f9f9;
+}
+
+
+.name-top-corses{
+    display: inline-block;
+    padding-left: 3em;
+    color: #77b660;
+    font-size: 13px;
+}
+
+.sil_teo{text-decoration:none;color:#000;cursor:pointer;font-size: 13px}
+.sil_teo:hover{text-decoration:none;color:#000;cursor:pointer;font-size:13px;}
+
+.container-177{
+  width: 410px;
+  vertical-align: middle;
+  white-space: nowrap;
+  position: relative;
+  padding:10px 0px;
+}
+.container-177 input#search_open_courses{
+  width: 330px;
+  height: 34px;
+  background: #f9f9f9;
+  border: none;
+  font-size: 11pt;
+  float: left;
+  padding-left: 45px;
+  outline:0;
+
+}
+
+</style>
+
+
+<script>
+
+var pages = [];
+var allBooks = [];
+var currentPage = 0;
+var currentTree = 0;
+
+
+function makeDomElements (sources) {
+  var id = '';
+  var name = '';
+  var descr = '';
+
+
+  return sources.map(function (source) {
+
+    id = source.corsId;
+
+    name = source.corsName;
+    descr = source.corsDescr;
+
+
+    return '<tr><td style="padding:15px 10px 15px 20px;border-right:1px solid #ededed;width:50%"><img style="position:relative;top:2px" src="eldorado/pics/lern.png" />&nbsp&nbsp&nbsp&nbsp<a class="sil_teo" href="view_doc.html?mode=course&doc_id=&object_id=' + id + '">'+ name+ '</a></td><td style="width:50%;font-size:13px;border-left:1px solid #ededed">'+ descr +'</td></tr>';
+  });
+}
+
+function makePages(data, chunk) {
+    var i, pages = [];
+
+    for (i = 0; i < data.length; i += chunk) {
+        pages.push(data.slice(i, i + chunk));
+      }
+
+ // allBooks = pages;
+  return pages;
+}
+
+
+function getData(string) {
+   $.ajax({
+           url: "custom_web_template.html?object_id=6311154503061489007",
+           type: "POST",
+           cache: false,
+          // data: 'search=&' + params,
+           //data: params,
+           data: 'search=' + string,
+           dataType: "html",
+           async: false,
+           success: function (response) {
+             allBooks = makePages(JSON.parse(response), 10);
+             // console.log(response);
+           },
+           error: function( oXttpRequest, sTextStatus, sErrorThrown ) {
+              alert(': ' + sTextStatus );
+           }
+        });
+}
+
+function makePaginator() {
+
+    if ($('.paginator-pages').children().length) {
+        $('.paginator-pages').empty();
+      };
+
+    $('.prev-pages').removeClass('visible-arrow');
+    $('.next-pages').removeClass('visible-arrow');
+
+  if (!allBooks.length) return;
+
+  var section = 0, page;
+  var allNumbers = [];
+  var i, j;
+
+    function printPages(id) {
+      //console.log(allNumbers.length, id);
+      //console.log(id < 0 || id == allNumbers.length);
+
+      if (id < 0 || id == allNumbers.length) {
+        return;
+      }
+
+      if ($('.paginator-pages').children().length) {
+        $('.paginator-pages').empty();
+      };
+
+      for (var i = 0; i < allNumbers[id].length; i++) {
+        $('.paginator-pages').append(allNumbers[id][i]);
+      }
+
+      $('.paginator-page').click(function (event) {
+        printTable(event.target.textContent - 1);
+
+        if(!$(this).hasClass('paginator-page-active'))
+          {
+            $(".paginator-page").removeClass("paginator-page-active");
+            $(this).addClass("paginator-page-active");
+          }
+
+      });
+
+      section = id;
+    }
+
+    for (i = 0, j = 1; i < allBooks.length; i++, j++) {
+      allNumbers.push('<div class="col-lg-1 paginator-page">' + j + '</div>');
+    }
+
+    allNumbers = makePages(allNumbers, 12);
+
+    if (allNumbers.length > 1) {
+      $('.prev-pages').addClass('visible-arrow');
+      $('.next-pages').addClass('visible-arrow');
+    }
+
+    $('.prev-page').click(function (e) {
+      printPages(section - 1);
+    });
+
+    $('.next-page').click(function (e) {
+      printPages(section + 1);
+    });
+
+    printPages(section);
+
+};
+
+function printTable(id) {
+
+  $('#content-cors-table').empty();
+
+  if (allBooks.length) {
+    table = makeDomElements(allBooks[id]);
+
+    currentPage = id;
+    $('#content-cors-table').append(table.join(''));
+  }
+}
+
+function initTable(id) {
+    allBooks = [];
+    pages = [];
+
+    currentTree = id;
+
+    getData("","tree=" + id);
+    makePaginator();
+    printTable(0);
+}
+
+$(document).ready(function() {
+    $(".vm-list-group li a").click(function () {
+        if(!$(this).hasClass('activeList'))
+            {
+                $(".vm-list-group li a.activeList").removeClass("activeList");
+                $(this).addClass("activeList");
+            }
+    });
+});
+
+</script>
+
+<style>
+    .paginator-page-active{
+      border-bottom: 1px solid #77b660;
+      padding: 0.5em;
+      text-align: center;
+      cursor: pointer;
+    }
+
+    .paginator-page{
+      /*border-bottom: 1px solid #77b660;*/
+      padding: 0.5em;
+      text-align: center;
+      cursor: pointer;
+    }
+
+    .poisk{
+      border-top:2px solid #77b660;
+      padding:0em 0.7em;
+      background: #f8f8f8;
+      height:3.5em;
+    }
+
+    .prev-pages, .next-pages{
+      display: none;
+    }
+    .prev-pages.visible-arrow, .next-pages.visible-arrow {
+      display:block;
+    }
+</style>
+
+    <!-- <a href="view_doc.html?doc_id=&object_id=' + _curTE.id + '&course_id=' + oCourse.course_id + '&mode=learning_proc"></a> -->
+
+
+<div class="row">
+    <div class="col-md-12">
+
+
+        <div class="col-lg-12" style="border-top:4px solid #77b660">
+            <img src="eldorado/new/uv.png" style="height: 2.8em;position: relative;top: 1em;left: 2em;" />
+            <div class="name-top-corses">ОТКРЫТЫЕ КУРСЫ</div>
+        </div>
+
+            <div class="search-holder">
+                <div class="col-md-6">
+
+                </div>
+                <div class="col-md-6" style="padding-bottom:1em">
+                    <div class="box">
+                        <div class="container-177">
+                            <span class="icon"><img style="position:absolute;left:14px;top:18px" src="eldorado/pics/searching.png" /></span>
+                            <input type="search" id="search_open_courses" placeholder="Поиск" />
+                            <div id="coursesClicker" style="padding:8px 0px;width:80px;position:absolute;right:0px;text-align:center;vertical-align:middle;background:#77b660;color:#fff">Найти</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="table-responsive" style="background:#fff">
+
+                <table class="table table-striped-vm table-hover" style="width:100%;background:#fff;font-size:14px">
+
+                        <thead>
+                            <tr>
+                                <th style="padding:20px;border-bottom:2px solid #77b660;border-right:1px solid #ededed;vertical-align:middle;width:50%;font-weight:bold;">Название</th>
+                                <th style="padding:20px;border-bottom:2px solid #77b660;text-align:center;width:50%;font-weight:bold;">Описание</th>
+                            </tr>
+                        </thead>
+                        <tbody id="content-cors-table">
+                            <tr>
+                            </tr>
+
+                        </tbody>
+                </table>
+
+                <div class="paginator" >
+                    <div class="col-lg-12" style="background:#fff;padding:1em;border-top:1px solid #ededed;">
+                    <div class="col-lg-2 prev-page" style="text-align:right;padding:0.5em;cursor:pointer;"><span class="prev-pages">&larr;</span></div>
+                                  <div class="col-lg-8 paginator-pages"></div>
+                    <div class="col-lg-2 next-page" style="text-align:left;padding:0.5em;cursor:pointer;"><span class="next-pages">&rarr;</span></div>
+                    </div>
+                </div>
+
+            </div>
+
+
+    </div>
+</div>
+
+Hello kernel!
+
+<script>
+	$(document).ready(function() {
+    	function getData(string) {
+           $.ajax({
+                   url: "custom_web_template.html?object_id=6244775775705199018",
+                   type: "POST",
+                   cache: false,
+                   data: 'search=' + string,
+                   dataType: "html",
+                   async: false,
+                   success: function (response) {
+                     //allBooks = makePages(JSON.parse(response), 10);
+                     console.log(response);
+                   },
+                   error: function( oXttpRequest, sTextStatus, sErrorThrown ) {
+                      alert(': ' + sTextStatus );
+                   }
+                });
+        }
+
+    	var searchString = $('#search_open_courses').val();
+
+    	getData('course');
+    });
+</script>
+
+
+<script type = "text/javascript" language = "javascript">
+
+    initTable(0);
+
+    $('#coursesClicker').bind('click',function(){
+        var searchString = $('#search_open_courses').val();
+            if (searchString != '') {
+                getData(encodeURIComponent(searchString));
+                makePaginator();
+                printTable(0);
+            }
+            else{
+                 // getData();
+                 // makePaginator();
+                 // printTable(0);
+                initTable(0);
+            }
+    });
+
+
+</script>

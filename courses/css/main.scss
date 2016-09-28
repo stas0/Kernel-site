@@ -1,0 +1,315 @@
+@import 'https://fonts.googleapis.com/css?family=Open+Sans:700';
+
+$imgPath: '../../../images/';
+$color-1: #7abc62;
+$color-2: #f8f7f7;
+$color-3: #3d464f;
+$color-4: #e7e8e9;
+$color-5: #fff;
+$color-6: #dee0e1;
+$color-7: #f3f3f4;
+$color-8: #eaeaee;
+
+@mixin selectNone() {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+#wrap {
+    width: 900px;
+    margin: auto;
+}
+
+input {
+    box-shadow: none;
+    border: none;
+    outline: none;
+}
+
+.courses {
+    border-top: 4px solid $color-1;
+    background: $color-5;
+
+    * {
+        font-family: 'Myriad Pro';
+    }
+
+    .header {
+        .title {
+            text-transform: uppercase;
+            color: $color-1;
+            display: table;
+            margin-top: 21px;
+            margin-left: 56px;
+            margin-bottom: 36px;
+
+            > div {
+                display: table-cell;
+                vertical-align: middle;
+                font-size: 12px;
+
+                &:last-child {
+                    padding-left: 31px;
+                    padding-top: 6px;
+                }
+            }
+        }
+
+        .toolbar {
+            display: flex;
+            flex-direction: row;
+            align-items: stretch;
+            padding-left: 21px;
+            padding-right: 26px;
+
+            > div:first-child {
+                font-size: 12px;
+                padding-right: 40px;
+                display: inline-table;
+
+                div {
+                    display: table-cell;
+                    vertical-align: middle;
+                }
+            }
+
+            > div {
+                position: relative;
+                height: 45px;
+                display: flex;
+                flex-direction: row;
+                align-items: stretch;
+
+                * {
+                    @include selectNone;
+                }
+
+                input {
+                    display: inline-block;
+                    flex: 1;
+                    height: 45px;
+                    background: $color-2;
+                    min-width: 235px;
+                    float: left;
+                    padding: 15px;
+                    box-sizing: border-box;
+                }
+
+                .btn {
+                    width: 45px;
+                    height: 100%;
+                    color: $color-5;
+                    display: inline-table;
+                    cursor: pointer;
+                    transition: all 100ms ease-in;
+
+                    > div {
+                        display: table-cell;
+                        vertical-align: middle;
+                        text-align: center;
+                    }
+                }
+
+                .list {
+                    position: absolute;
+                    top: 100%;
+                    left: 0;
+                    width: 100%;
+                    visibility: hidden;
+
+                    &.switch {
+                        visibility: visible;
+                    }
+
+                    > div{
+                        padding-right: 26px;
+                        div {
+                            padding: 12px 15px;
+                            background: $color-5;
+                            border: 1px solid $color-4;
+                            border-bottom: none;
+                            color: $color-3;
+                            font-size: 13px;
+                            text-transform: uppercase;
+                            cursor: pointer;
+
+                            &:first-child {
+                                border-top: none;
+                            }
+
+                            &:last-child {
+                                border-bottom: 1px solid $color-4;
+                            }
+
+                            &:hover {
+                                background: $color-4;
+                            }
+                        }
+                    }
+                }
+
+                &.state {
+                    flex: 1;
+                    padding-right: 26px;
+
+                    * {
+                        font-family: 'Open Sans';
+                    }
+
+                    .btn {
+                        background: $color-4;
+
+                        > div {
+                            padding-top: 7px;
+                        }
+                    }
+
+                    input::-webkit-input-placeholder {color: $color-3;}
+                    input::-moz-placeholder          {color: $color-3;}/* Firefox 19+ */
+                    input:-moz-placeholder           {color: $color-3;}/* Firefox 18- */
+                    input:-ms-input-placeholder      {color: $color-3;}
+                }
+
+                &.search {
+                    flex: 1;
+
+                    .btn {
+                        background: $color-1;
+                        width: 102px;
+                        font-size: 14px;
+                        padding-top: 5px;
+
+                        &:active {
+                            box-shadow: 0px 0px 1px 1px #7abc62;
+                        }
+                    }
+
+                    .icon {
+                        position: absolute;
+                        left: 15px;
+                        top: 0px;
+                        bottom: 0px;
+                        margin: auto;
+                    }
+
+                    input {
+                        max-width: 290px;
+                        padding-left: 50px;
+                        color: $color-3;
+                    }
+                }
+            }
+        }
+
+        .borderBottom {
+            height: 2px;
+            background: $color-2;
+            border-top: 1px solid $color-6;
+            margin-top: 10px;
+        }
+    }
+
+    .body {
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            
+            td {
+                cursor: default;
+            }
+            
+            thead {
+                td {
+                    color: $color-3;
+                    font-size: 15px;
+                    border-bottom: 2px solid $color-1;
+                    padding-top: 25px;
+                    padding-left: 22px;
+                    padding-bottom: 22px;
+
+                    &:last-child {
+                        padding-left: 19.5%;
+                    }
+                }
+            }
+
+            td {
+                &:first-child {
+                    border-right: 1px solid $color-4;
+                    width: 46.5%;
+                }
+            }
+
+            tbody {
+                tr {
+                    &:nth-child(odd) {
+                        background: $color-7;
+                    }
+
+                    &:hover {
+                        background: $color-8;
+                    }
+                }
+
+                td {
+                    padding: 21px;
+                    padding-top: 25px;
+                    font-size: 15px;
+                    color: $color-3;
+
+                    &:first-child {
+                        background: url("#{$imgPath}folder-2.png");
+                        background-repeat: no-repeat;
+                        background-position: 21px center;
+                        padding-left: 60px;
+                    }
+                }
+            }
+        }
+    }
+
+    .pagination {
+        text-align: center;
+        padding: 15px 0px;
+
+        div {
+            display: inline-block;
+            font-size: 13px;
+            font-family: 'Open Sans';
+        }
+
+        .list {
+            div {
+                padding: 17px;
+                padding-bottom: 15px;
+                position: relative;
+                cursor: pointer;
+                &::before {
+                    content: '';
+                    position: absolute;
+                    bottom: 0px;
+                    left: 0px;
+                    right: 0px;
+                    margin: 0px auto;
+                    height: 2px;
+                    width: 0%;
+                    background: $color-1;
+                    transition: width 200ms ease-in;
+                }
+                &:hover {
+                    &::before {
+                        width: 100%;
+                    }
+                }
+            }
+        }
+
+        .next {
+            margin-left: 20px;
+        }
+    }
+}

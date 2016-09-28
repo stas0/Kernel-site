@@ -1,0 +1,268 @@
+<meta charset="utf-8"/>
+<%
+try
+{
+CUR_COURSE = '';
+//aCrt = ArrayUnion(XQuery('for $t in active_learnings where $t/person_id =' + curUserID + ' order by $t/start_usage_date return $t'), XQuery('for $at in learnings where $at/person_id =' + curUserID + ' order by $at/start_usage_date return $at'));
+aCrt = XQuery('for $t in courses where $t/yourself_start = true() return $t');
+
+CourseCounting = 1;
+// Назначен и в Процессе
+for(_curTE in aCrt)
+{
+
+oCourse = OpenDoc(UrlFromDocID(_curTE.id)).TopElem;
+//sCourseName = OpenDoc(UrlFromDocID(oCourse.course_id)).TopElem;
+
+if(CourseCounting < 4)
+{
+CUR_COURSE += '<TABLE style="width:94%;border-collapse: collapse;margin-left:15px" cellspacing="0"><TR><TD style="border-bottom:1px solid #dfdfdf;padding-bottom:26px;padding-right:30px;padding-top:26px;"align="left"><a href="view_doc.html?mode=course&doc_id=6187238517575340996&object_id=' + _curTE.id + '">'+ oCourse.name + '</a></TD></TR></TABLE>';
+}
+CourseCounting ++
+}
+}
+catch(err)
+{
+alert(err);
+}
+%>
+
+<style>
+	.menu_vm_tre{
+		position:relative;
+		width:1200px;
+		top:6px;
+	}
+
+	#nav11, #nav11 ul, #nav11 li {
+		margin: 0;
+		padding: 0;
+		border: 0;
+
+	}
+
+	#nav11 {
+		border-spacing: 0 0;
+		position: relative;
+		z-index: 50;
+		width: 100%;
+	}
+	#nav11 ul {
+		position: absolute;
+		display: none;
+	}
+
+	#nav11 ul li {
+		list-style: none;
+	}
+	#nav11 .right {
+		direction: rtl;
+	}
+	#nav11 .right ul {
+		right: 0;
+	}
+	#nav11 .right li {
+		direction: ltr;
+	}
+	#nav11 a {
+		color:#7abc62;
+		font-weight:bold;
+		font-size:14px;
+		text-align: left;
+		text-decoration: none;
+		padding-left:0px;
+	}
+	#nav11 ul a {
+		padding: 3px 15px;
+		text-align: left;
+	}
+
+	#nav11 .navicon_vm_imp{position:absolute;bottom:0px;width:600px;padding-top:26px;padding-bottom:20px;padding-left:15px;}
+	#nav11 .navicon_vm_imp a{color:#000;font-weight:bold;font-size:9px;text-decoration:underline;position:relative;top:-14px;right:-8px}
+</style>
+
+<div class="menu_vm_tre">
+	<table id="nav11" cellspacing="0" style="border-collapse: collapse;">
+		<tr>
+			<td style="position:relative;right:0px;width:600px">
+				<div style="width:600px;background-color:#fff;height:342px;">
+					<table style="width:100%;border-collapse: collapse;margin-bottom:18px;" cellspacing="0">
+						<tr>
+							<td style="color:#000;font-size:12px;padding-bottom:0px;padding-top:10px;padding-left:15px"><b style="position:relative;top:10px">НОВОСТИ ПОРТАЛА</b></td>
+							<td align="right" style="padding-top:10px;padding-right:15px;padding-bottom:0px">
+								<span style="color:#000;font-size:9px;position:relative;top:0px;right:15px">СМОТРЕТЬ ВСЕ</span>
+								<a href="view_doc.html?mode=all_news"><img style="position:relative;top:10px;left:0px" src="eldorado/pics/strelka_ser.png" /></a>
+							</td>
+						</tr>
+
+					</table>
+
+
+
+					<%
+					JN = 'Января'
+					FB = 'Февраля'
+					MR = 'Марта'
+					AP = 'Апреля'
+					MY = 'Мая'
+					J = 'Июня'
+					JL = 'Июля'
+					AU = 'Августа'
+					SP = 'Сентября'
+					OC = 'Октября'
+					NW = 'Ноября'
+					DC = 'Декабря'
+
+					try
+					{
+					curDate = DateNewTime(Date(Request.Query.date));
+					}
+					catch (rr)
+					{
+					curDate = DateNewTime(CurDate);
+					}
+
+					month    = Month(curDate);
+
+
+
+
+					try
+					{
+
+					newsFoto = '';
+					showFoto = '';
+					aNewsDoc = XQuery('for $da in documents where $da/parent_document_id = ' + 6148914691236517175 + ' order by $da/create_date descending return $da');
+
+
+					CurCounting = 1;
+					for (curNews in aNewsDoc)
+					{
+					try
+					{
+					oNewsDoc = OpenDoc(UrlFromDocID(curNews.id)).TopElem;
+
+					oNewsNow = Month(oNewsDoc.create_date);
+
+					if (oNewsNow == 1) {
+					nowDay = JN
+					}
+
+					if (oNewsNow == 2) {
+					nowDay = FB
+					}
+
+					if (oNewsNow == 3) {
+					nowDay = MR
+					}
+
+					if (oNewsNow == 4) {
+					nowDay = AP
+					}
+
+					if (oNewsNow == 5) {
+					nowDay = MY
+					}
+
+					if (oNewsNow == 6) {
+					nowDay = J
+					}
+
+					if (oNewsNow == 7) {
+					nowDay = JL
+					}
+
+					if (oNewsNow == 8) {
+					nowDay = AU
+					}
+
+					if (oNewsNow == 9) {
+					nowDay = SP
+					}
+
+					if (oNewsNow == 10) {
+					nowDay = OC
+					}
+
+					if (oNewsNow == 11) {
+					nowDay = NW
+					}
+
+					if (oNewsNow == 12) {
+					nowDay = DC
+					}
+
+
+					//newsFoto = OpenDoc(UrlFromDocID(oNewsDoc.resource_id)).TopElem;
+
+					newsFoto = oNewsDoc.resource_id.HasValue ? "download_file.html?file_id=" + oNewsDoc.resource_id : '';
+
+
+					if(newsFoto != ''){
+
+					newsFotoGlav = '<img width="97" height="71" style="float:left;margin-right:30px" src="' + newsFoto + '" />';
+
+					}
+					else
+					{
+					newsFotoGlav = '<img width="97" height="71" style="float:left;margin-right:30px" src="eldorado/pics/imo.png" />';
+					}
+
+					//eldorado/pics/imo.png
+
+					//( String(curUser.personal_config.avatar_filename) == "" ) ? "pics/nophoto.png" : StrReplace(curUser.personal_config.avatar_filename, "\\", "/");
+					//showFoto = newsFoto.file_url;
+					//showFoto= newsFoto.id;
+					if(CurCounting <4)
+					{
+					%>
+
+
+					<div style="margin-left:12px;margin-bottom:12px;margin-right:12px;width:48em;height:6em">
+						<div style=""><%=newsFotoGlav%></div>
+						<span style="color:#7abc62;font-size:12px;"><%=Day(Date(oNewsDoc.create_date)) +'&nbsp'+nowDay+'&nbsp'+ StrTime(oNewsDoc.create_date)%></span></br>
+						<span style="font-weight:bold;font-size:14px;"><a href="view_doc.html?mode=all_news_one_text&news_id=<%=curNews.id%>" style="color:#000"><%=oNewsDoc.name.HasValue ? oNewsDoc.name : ''%></a></span></br>
+						<!--<span style="font-size:12px;">oNewsDoc.text_area.HasValue ? StrRangePos(tools_web.get_web_desc(oNewsDoc.text_area, UrlFromDocID(curNews.id), 'document.text_area'),0,172) : '' '...'</span>-->
+					</div>
+
+
+					<%
+					}
+					CurCounting++
+					}
+					catch (e)
+					{
+					alert(e);
+					}
+					}
+					}
+					catch (e)
+					{
+					alert(e);
+					}
+					%>
+
+				</div>
+
+			</td>
+
+			<td style="width:600px;position:relative">
+				<div style="border:0px solid #000;background-color:#f8f8f8;width:600px;height:342px">
+					<table style="width:100%;border-collapse: collapse;height:46px" cellspacing="0">
+						<tr>
+							<td style="color:#000;font-size:12px;padding-bottom:0px;padding-top:10px;padding-left:15px"><b style="position:relative;top:10px">ОТКРЫТЫЕ КУРСЫ</b></td>
+							<td align="right" style="padding-top:10px;padding-right:15px;padding-bottom:0px">
+								<span style="color:#000;font-size:9px;position:relative;top:0px;right:15px">ВСЕ КУРСЫ</span>
+								<a href="view_doc.html?doc&doc_id=6244775775705199018"><img style="position:relative;top:10px;left:0px" src="eldorado/pics/strelka_ser.png" /></a>
+							</td>
+						</tr>
+
+						<%=CUR_COURSE%>
+						<div class="navicon_vm_imp"><img src="eldorado/pics/ask.png" /><a href="mailto:vm@coloris.com.ua">НАПИСАТЬ АДМИНИСТРАТОРУ STUDY</a></div>
+					</table>
+
+				</div>
+			</td>
+		</tr>
+	</table>
+</div>
